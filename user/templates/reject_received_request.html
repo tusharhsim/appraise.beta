@@ -1,0 +1,76 @@
+{% extends "dashboard.html" %}
+{% load crispy_forms_tags %}
+
+{% block start %}
+<style>
+table, td, th {
+            border: 1px solid gray;
+	    text-align: center
+}
+body{
+  background-color: #ffffff;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg stroke='%23CCC' stroke-width='0' %3E%3Crect fill='%23F5F5F5' x='-60' y='-60' width='110' height='240'/%3E%3C/g%3E%3C/svg%3E");
+}
+</style>
+
+<center><h1>Hi {{name|title}}!</h1></center><br>
+<div class='container'>
+<div class='row'>
+<div class='col'>
+<center>
+<h4> Interested applicants for your posted jobs:</h4>
+<br><br>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+      {% for i in job_alerts %}
+      <div class="col">
+        <div class="card border-dark bg-transparent mb-3" style="max-width: 18rem;">
+        <div class="card-header bg-dark text-white"><b>{{i.job.title|title}} -- {{i.job_id}}</b>&emsp;&emsp;&emsp;&emsp;&emsp;
+          <a href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+            </svg>
+          </a>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Requested by -- <b>{{i.requester|title}}</b></h5>
+          <p class="card-text">
+            <br>
+              Rating -- {{i.requester.employer_rating}}<br>
+              PIN code -- {{i.pin_code}}<br>
+              Contact info -- {{i.contact}}<br>
+              Ask amount -- {{i.ask_amount}}<br>
+          </p>
+        </div>
+      </div>
+      </div>  
+      {% endfor %}
+</div></div>
+</center>
+<div class='col'>
+<center>
+<h4> Employers who requested to hire you:</h4>
+<br><br>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+      {% for i in hiring_alerts %}
+      <div class="col">
+        <div class="card border-dark bg-transparent mb-3" style="max-width: 18rem;">
+        <div class="card-header bg-dark text-white"><b>{{i.task.title|title}} -- {{i.task_id}}</b></div>
+        <div class="card-body">
+          <h5 class="card-title">Requested by -- <b>{{i.employer|title}}</b></h5>
+          <p class="card-text">
+            <br>
+              Rating -- {{i.employer.employer_rating}}<br>
+              PIN code -- {{i.pin_code}}<br>
+              Contact info -- {{i.contact}}<br>
+              Bid amount -- {{i.bid_amount}}<br>
+          </p>
+        </div>
+      </div>
+      </div>  
+      {% endfor %}
+</div></div>
+</center>
+</div>
+</div>
+{% endblock %}
